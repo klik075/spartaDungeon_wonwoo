@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using System.Xml.Serialization;
 //using System.Threading;
 namespace spartaDungeon_wonwoo
@@ -6,6 +8,7 @@ namespace spartaDungeon_wonwoo
 
     public class Program
     {
+        static readonly string folderPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\gameData";
         static void Main(string[] args)
         {
             Player player = new Player();//플레이어 생성
@@ -13,11 +16,11 @@ namespace spartaDungeon_wonwoo
             Dungeon dungeon = new Dungeon();//던전 생성
             PlayerData pData = new PlayerData();//플레이어 데이터 객체
             ShopData sData = new ShopData();//상점 데이터 객체
-            if (!(File.Exists(@"D:\madeByWonwoo\playerData.xml")))//파일 경로에 파일이 없다면
+            if (!(File.Exists(folderPath + @"\playerData.xml")))//파일 경로에 파일이 없다면
             {
                 pData.SerializePlayer();//초기화된 플레이어 파일 생성
             }
-            if (!(File.Exists(@"D:\madeByWonwoo\shopData.xml")))//파일 경로에 파일이 없다면
+            if (!(File.Exists(folderPath + @"\shopData.xml")))//파일 경로에 파일이 없다면
             {
                 sData.SerializeShop(); //초기화된 상점 파일 생성
             }
@@ -39,7 +42,7 @@ namespace spartaDungeon_wonwoo
         }
         public class ShopData //게임 데이터
         {
-            private string xmlFileName = @"D:\madeByWonwoo\shopData.xml";//xml 파일 경로
+            private string xmlFileName = folderPath + @"\shopData.xml";//xml 파일 경로
             public void SerializeShop()//게임 초기화 직렬화
             {
                 Shop objShop = new Shop();
@@ -95,8 +98,7 @@ namespace spartaDungeon_wonwoo
         }
         public class PlayerData //게임 데이터
         {
-            private string xmlFileName = @"D:\madeByWonwoo\playerData.xml";//xml 파일 경로
-            private string folderPath = @"D:\madeByWonwoo";//D드라이브 하위에 생성할 폴더 이름
+            private string xmlFileName = folderPath + @"\playerData.xml";//xml 파일 경로
             public void SerializePlayer() //게임 초기화 직렬화
             {
                 DirectoryInfo di = new DirectoryInfo(folderPath);

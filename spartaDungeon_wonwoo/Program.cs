@@ -165,7 +165,7 @@ namespace spartaDungeon_wonwoo
                         player.PlayerState();//상태보기
                         break;
                     case GameState.inventory:
-                        player.PlayerInventory(ref player);//인벤토리
+                        player.PlayerInventory(false,ref player);//인벤토리
                         break;
                     case GameState.shop:
                         shop.PlayerShop(ref player, ref pData, ref sData, ref shop, false);//상점
@@ -1213,7 +1213,7 @@ namespace spartaDungeon_wonwoo
                     switch (input)
                     {
                         case 1:
-                            ShowItems(true, ref player);
+                            PlayerInventory(true, ref player);
                             break;
                         case 0:
                             break;
@@ -1228,25 +1228,28 @@ namespace spartaDungeon_wonwoo
                     {
                         EquipItem(input, ref player);
                         Console.Clear();
-                        ShowItems(false, ref player);
+                        //ShowItems(false, ref player);
+                        PlayerInventory(false, ref player);
 
                     }
                     else if (input == -1) //나가기 눌렀을 때
                     {
                         Console.Clear();
-                        ShowItems(false, ref player);
+                        //ShowItems(false, ref player);
+                        PlayerInventory(false, ref player);
                     }
                     else
                     {
                         Console.Clear();
                         Console.WriteLine("잘못된 입력입니다");
                         Console.WriteLine();
-                        ShowItems(true, ref player);
+                        //ShowItems(true, ref player);
+                        PlayerInventory(true, ref player);
                         return;
                     }
                 }
             }
-            public void PlayerInventory(ref Player player) //플레이어 인벤토리 관리
+            public void PlayerInventory(bool isIn ,ref Player player) //플레이어 인벤토리 관리
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("인벤토리");
@@ -1254,7 +1257,7 @@ namespace spartaDungeon_wonwoo
                 Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.");
                 Console.WriteLine();
 
-                ShowItems(false, ref player);// 아이템 목록을 보여줌 
+                ShowItems(isIn, ref player);// 아이템 목록을 보여줌 
             }
         }
         public enum GameState
